@@ -39,7 +39,7 @@ def send_message(name, data):
 
 
 
-def get_messages(name, timestamp, limit, timeout):
+def get_messages(name, timestamp, limit, order, timeout):
     def _get_messages():
 
         messages =  ChannelMessage.objects.filter(
@@ -51,7 +51,7 @@ def get_messages(name, timestamp, limit, timeout):
                 tzinfo=utc,
                 microsecond = int(timestamp * 1000000) % int(timestamp)
             ),
-        ).order_by("-created_time")[:limit]
+        ).order_by("%created_time" % order)[:limit]
         return [{
             "content": message.content,
             "timestamp": calendar.timegm(
@@ -75,3 +75,9 @@ def get_messages(name, timestamp, limit, timeout):
         finally:
             sub.close()
     return messages
+
+
+def clean_message():
+    ChannelMessage.objects.filter(
+        destroy_time__lte=timezone.now()        
+    ).delete()

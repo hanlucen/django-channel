@@ -15,7 +15,7 @@ long_description = '\n\n'.join((
 
 setup(
     name = 'django_channel',
-    version = '0.4.3',
+    version = '0.4.5',
     url = 'http://github.com/duanhongyi/django-channel',
     license = 'BSD',
     description = 'channel support for django.',
