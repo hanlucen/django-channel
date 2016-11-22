@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import channel_send, channel_pull
+from .views import channel_send, channel_pull, channel_clean
 
 
 urlpatterns = [
